@@ -61,7 +61,7 @@ public void displayWinningMessage()
 public boolean isValid(int r, int c)
 {
   //your code here
-  if (r >= 0 && r < NUM_ROWS && c >= 0 && c < NUM_COLS){
+  if (r >= 0 && r < NUM_ROWS && c >= 0 && c < NUM_COLS) {
     return true;
   } else return false;
 }
@@ -69,6 +69,16 @@ public int countMines(int row, int col)
 {
   int numMines = 0;
   //your code here
+  for (int r = row - 1; r <= row + 1; r++) {
+    for (int c = col - 1; c <= col + 1; c++) {
+      if (isValid(r, c) == true && mines.contains(buttons[r][c])) {
+        numMines++;
+      }
+    }
+  }
+  if (mines.contains(buttons[row][col])) {
+    numMines--;
+  }
   return numMines;
 }
 public class MSButton
@@ -96,6 +106,18 @@ public class MSButton
   {
     clicked = true;
     //your code here
+    if (mouseButton == RIGHT) {
+      flagged = !flagged;
+      if (flagged == false) {
+        clicked = false;
+      }
+    } else if (mines.contains(this)) {
+      displayLosingMessage();
+    } else if (countMines(myRow, myCol) > 0) {
+      myLabel = myLabel + countMines(myRow, myCol);
+    } else {
+      //recursively call mousePressed with the valid, unclicked, neighboring buttons in all 8 directions
+    }
   }
   public void draw () 
   {    
