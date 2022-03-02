@@ -116,7 +116,14 @@ public class MSButton
     } else if (countMines(myRow, myCol) > 0) {
       myLabel = myLabel + countMines(myRow, myCol);
     } else {
-      //recursively call mousePressed with the valid, unclicked, neighboring buttons in all 8 directions
+      buttons[myRow-1][myCol-1].mousePressed();
+      buttons[myRow-1][myCol].mousePressed();
+      buttons[myRow-1][myCol+1].mousePressed();
+      buttons[myRow][myCol-1].mousePressed();
+      buttons[myRow][myCol+1].mousePressed();
+      buttons[myRow+1][myCol-1].mousePressed();
+      buttons[myRow+1][myCol].mousePressed();
+      buttons[myRow+1][myCol+1].mousePressed();
     }
   }
   public void draw () 
@@ -140,7 +147,7 @@ public class MSButton
   }
   public void setLabel(int newLabel)
   {
-    myLabel = ""+ newLabel;
+    myLabel = "";
   }
   public boolean isFlagged()
   {
