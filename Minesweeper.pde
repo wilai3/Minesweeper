@@ -48,15 +48,34 @@ public void draw ()
 public boolean isWon()
 {
   //your code here
+  int count = 0;
+  for (int i = 0; i < NUM_MINES; i++){
+    if (mines.get(i).flagged == true){
+      count++;
+    }
+  }
+  if (count == NUM_MINES){
+    return true;
+  }
   return false;
 }
 public void displayLosingMessage()
 {
   //your code here
+  for (int i = 0; i < NUM_MINES; i++){
+    mines.get(i).clicked = true;
+  }
 }
 public void displayWinningMessage()
 {
   //your code here
+  //for (int r = 0; r < NUM_ROWS; r++){
+    //for (int c = 0; c < NUM_COLS; c++){
+      //buttons[r][c].setLabel("You win!");
+    //}
+  //}
+  buttons[NUM_ROWS/2][NUM_COLS/2].setLabel("You win!");
+  //text("You win!",200,200);
 }
 public boolean isValid(int r, int c)
 {
@@ -116,14 +135,30 @@ public class MSButton
     } else if (countMines(myRow, myCol) > 0) {
       myLabel = myLabel + countMines(myRow, myCol);
     } else {
-      buttons[myRow-1][myCol-1].mousePressed();
-      buttons[myRow-1][myCol].mousePressed();
-      buttons[myRow-1][myCol+1].mousePressed();
-      buttons[myRow][myCol-1].mousePressed();
-      buttons[myRow][myCol+1].mousePressed();
-      buttons[myRow+1][myCol-1].mousePressed();
-      buttons[myRow+1][myCol].mousePressed();
-      buttons[myRow+1][myCol+1].mousePressed();
+      if(isValid(myRow-1,myCol-1) && buttons[myRow-1][myCol-1].clicked == false){
+        buttons[myRow-1][myCol-1].mousePressed();
+      }
+      if(isValid(myRow-1,myCol) && buttons[myRow-1][myCol].clicked == false){
+        buttons[myRow-1][myCol].mousePressed();
+      }
+      if(isValid(myRow-1,myCol+1) && buttons[myRow-1][myCol+1].clicked == false){
+        buttons[myRow-1][myCol+1].mousePressed();
+      }
+      if(isValid(myRow,myCol-1) && buttons[myRow][myCol-1].clicked == false){
+        buttons[myRow][myCol-1].mousePressed();
+      }
+      if(isValid(myRow,myCol+1) && buttons[myRow][myCol+1].clicked == false){
+        buttons[myRow][myCol+1].mousePressed();
+      }
+      if(isValid(myRow+1,myCol-1) && buttons[myRow+1][myCol-1].clicked == false){
+        buttons[myRow+1][myCol-1].mousePressed();
+      }
+      if(isValid(myRow+1,myCol) && buttons[myRow+1][myCol].clicked == false){
+        buttons[myRow+1][myCol].mousePressed();
+      }
+      if(isValid(myRow+1,myCol+1) && buttons[myRow+1][myCol+1].clicked == false){
+        buttons[myRow+1][myCol+1].mousePressed();
+      }
     }
   }
   public void draw () 
